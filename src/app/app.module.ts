@@ -1,14 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AboutComponent } from './components/about/about.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+
+const routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '404' }
+];
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    NotFoundComponent,
+    DashboardComponent,
+    AboutComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule,
+    FormsModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]
