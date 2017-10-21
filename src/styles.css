@@ -1,0 +1,29 @@
+/*flex*/
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+.flex-center-middle {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+/*padding*/
+.ptop20 {
+  padding-top: 20px;
+}
+.pbottom20 {
+  padding-bottom: 20px;
+}
+
+
+/*margin*/
+.mtop20 {
+  margin-top: 20px;
+}
+.mbottom20 {
+  margin-bottom: 20px;
+}
