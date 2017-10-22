@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserSignup} from '../../models/user-signup';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  username: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+  confirm: string;
+
+  constructor(public user: UserSignup) { }
 
   ngOnInit() {
   }
 
+  onSubmit(form: NgForm) {
+    form.reset();
+    return false;
+  }
 }

@@ -1,3 +1,29 @@
-<p>
-  signup works!
-</p>
+<div class="container flex-center">
+  <div class="jumbotron col-xs-12 col-sm-8 col-md-6">
+    <form #form="ngForm" (submit)="onSubmit(form)" ngNativeValidate>
+      <div class="form-group">
+        <label for="username" class="control-label">Username</label>
+        <input type="text" id="username" name="username" class="form-control" [(ngModel)]="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email" class="control-label">Email</label>
+        <input type="text" id="email" name="email" class="form-control" [(ngModel)]="email" required>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber" class="control-label">Phone number</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" [(ngModel)]="phoneNumber" required>
+      </div>
+      <div class="form-group">
+        <label for="password" class="control-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirm" class="control-label">Confirm password</label>
+        <input type="password" id="confirm" name="confirm" class="form-control" [(ngModel)]="confirm" required>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary form-control mtop20">Sign Up</button>
+      </div>
+    </form>
+  </div>
+</div>

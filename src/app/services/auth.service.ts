@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {UserSignup} from '../models/user-signup';
 
 @Injectable()
 export class AuthService {
@@ -20,5 +21,9 @@ export class AuthService {
 
   isAuthenticated() {
     return localStorage.getItem('user') != null;
+  }
+
+  signUp(user: UserSignup) {
+    return true;
   }
 }
