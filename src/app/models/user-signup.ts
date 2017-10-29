@@ -1,5 +1,6 @@
 export class UserSignup {
-  private _username: string;
+  private _firstName: string;
+  private _lastName: string;
   private _email: string;
   private _phoneNumber: string;
   private _password: string;
@@ -8,12 +9,20 @@ export class UserSignup {
   constructor() {
   }
 
-  get username(): string {
-    return this._username;
+  get firstName(): string {
+    return this._firstName;
   }
 
-  set username(value: string) {
-    this._username = value;
+  set firstName(value: string) {
+    this._firstName = value;
+  }
+
+  get lastName(): string {
+    return this._lastName;
+  }
+
+  set lastName(value: string) {
+    this._lastName = value;
   }
 
   get email(): string {

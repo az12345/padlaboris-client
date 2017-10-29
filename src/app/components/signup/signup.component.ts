@@ -9,7 +9,8 @@ import {NgForm} from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 
-  username: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phoneNumber: string;
   password: string;

@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  errorMessage: String;
 
   constructor(public user: User,
               private authService: AuthService,
@@ -23,6 +24,9 @@ export class LoginComponent implements OnInit {
 
     if (loginSuccess) {
       this.router.navigate(['/dashboard']);
+      this.errorMessage = '';
+    } else {
+      this.errorMessage = 'Incorrect username or password!';
     }
   }
 }

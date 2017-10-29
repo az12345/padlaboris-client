@@ -13,14 +13,14 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav" routerLinkActive="active">
         <li class="active">
-          <a routerLink="/dashboard" *ngIf="isAuthenticated()">Dashboard</a>
+          <a routerLink="/dashboard" *ngIf="isAuthenticated()">Личный Кабинет</a>
         </li>
-        <li><a routerLink="about">About</a></li>
+        <li><a routerLink="about">О сайте</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="signup" *ngIf="!isAuthenticated()">Sign Up</a></li>
-        <li><a routerLink="login" *ngIf="!isAuthenticated()">Log In</a></li>
-        <li><a *ngIf="isAuthenticated()" (click)="logout()">Log Out</a></li>
+        <li><a routerLink="signup" *ngIf="!isAuthenticated()">Регистрация</a></li>
+        <li><a routerLink="login" *ngIf="!isAuthenticated()">Вход</a></li>
+        <li><a href="" *ngIf="isAuthenticated()" (click)="logout()">Выход</a></li>
       </ul>
     </div>
   </div>

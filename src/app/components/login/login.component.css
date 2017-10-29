@@ -1,0 +1,27 @@
+a {
+  text-decoration: none;
+}
+.restore-link {
+  margin-top: 20px;
+}
+.restore-link > a {
+  font-size: 1.2em;
+  color: #0a68b4;
+}
+.error {
+  padding-top: 10px;
+}
+.error > p {
+  margin: 0;
+  color: red;
+  font-size: 1.2em;
+}
+.container {
+  padding-top: 30px;
+}
+.jumbotron {
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,.15);
+  background-color: #fff;
+  border-radius: 2px;
+  padding: 45px;
+}

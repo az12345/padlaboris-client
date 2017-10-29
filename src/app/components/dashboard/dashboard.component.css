@@ -1,0 +1,28 @@
+.container-fluid {
+  margin-top: -23px;
+}
+.dashboard-header h1 {
+  margin: 20px 0;
+  font-weight: 300;
+  font-size: 3.8em;
+}
+.dashboard-header h2 {
+  margin: 10px 0 40px 0;
+  font-weight: 300;
+  font-size: 2.2em;
+}
+.dashboard-header h3 {
+  margin: 20px 0;
+  font-weight: 300;
+  font-size: 1.8em;
+}
+.dashboard-header dl > * {
+  font-size: 1.25em;
+}
+.dashboard-header dl > dt {
+  text-align: left;
+}
+.dashboard-header dl > dd {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}

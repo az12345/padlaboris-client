@@ -2,27 +2,43 @@
   <div class="jumbotron col-xs-12 col-sm-8 col-md-6">
     <form #form="ngForm" (submit)="onSubmit(form)" ngNativeValidate>
       <div class="form-group">
-        <label for="username" class="control-label">Username</label>
-        <input type="text" id="username" name="username" class="form-control" [(ngModel)]="username" required>
+        <label for="firstName" class="control-label">Имя</label>
+        <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="firstName" required>
       </div>
       <div class="form-group">
-        <label for="email" class="control-label">Email</label>
-        <input type="text" id="email" name="email" class="form-control" [(ngModel)]="email" required>
+        <label for="lastName" class="control-label">Фамилия</label>
+        <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="lastName" required>
       </div>
       <div class="form-group">
-        <label for="phoneNumber" class="control-label">Phone number</label>
+        <label for="email" class="control-label">Электронная почта</label>
+        <input type="email"
+               id="email"
+               name="email"
+               class="form-control"
+               [(ngModel)]="email"
+               email="true"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber" class="control-label">Мобильный телефон</label>
         <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" [(ngModel)]="phoneNumber" required>
       </div>
       <div class="form-group">
-        <label for="password" class="control-label">Password</label>
-        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required>
+        <label for="password" class="control-label">Пароль</label>
+        <input type="password"
+               id="password"
+               name="password"
+               class="form-control"
+               [(ngModel)]="password"
+               minlength="6"
+               required>
       </div>
       <div class="form-group">
-        <label for="confirm" class="control-label">Confirm password</label>
-        <input type="password" id="confirm" name="confirm" class="form-control" [(ngModel)]="confirm" required>
+        <label for="confirm" class="control-label">Подтверждение пароля</label>
+        <input type="password"  id="confirm" name="confirm" class="form-control" [(ngModel)]="confirm" required>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary form-control mtop20">Sign Up</button>
+        <button type="submit" class="btn btn-primary form-control mtop20">Регистрация</button>
       </div>
     </form>
   </div>

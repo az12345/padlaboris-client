@@ -13,6 +13,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { RestoreComponent } from './components/restore/restore.component';
 
 /*services*/
 import { UserService } from './services/user.service';
@@ -31,6 +32,7 @@ const routes = [
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'restore', component: RestoreComponent },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '404' }
 ];
@@ -44,7 +46,8 @@ const routes = [
     DashboardComponent,
     AboutComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    RestoreComponent
   ],
   imports: [
     BrowserModule,
