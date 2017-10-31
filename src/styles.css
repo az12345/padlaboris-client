@@ -26,7 +26,9 @@ body {
 .pbottom20 {
   padding-bottom: 20px;
 }
-
+.nop {
+  padding: 0;
+}
 
 /*margin*/
 .mtop20 {
@@ -34,4 +36,7 @@ body {
 }
 .mbottom20 {
   margin-bottom: 20px;
+}
+.nom {
+  margin: 0;
 }
