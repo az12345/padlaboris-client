@@ -10,9 +10,6 @@
         <label for="password" class="control-label">Пароль</label>
         <input type="password" id="password" name="password" class="form-control" [(ngModel)]="user.password">
       </div>
-      <div class="flex-center restore-link">
-        <a routerLink="/restore">Забыли пароль?</a>
-      </div>
       <div class="flex-center error">
         <p>{{errorMessage}}</p>
       </div>

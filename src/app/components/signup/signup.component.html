@@ -1,6 +1,6 @@
 <div class="container flex-center">
-  <div class="jumbotron col-xs-12 col-sm-8 col-md-6">
-    <form #form="ngForm" (submit)="onSubmit(form)" ngNativeValidate>
+  <div class="jumbotron col-xs-12 col-sm-9 col-md-7">
+    <form class="tab-content mtop20" #form="ngForm" (submit)="onSubmit(form)" ngNativeValidate>
       <div class="form-group">
         <label for="firstName" class="control-label">Имя</label>
         <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="firstName" required>
@@ -10,18 +10,42 @@
         <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="lastName" required>
       </div>
       <div class="form-group">
-        <label for="email" class="control-label">Электронная почта</label>
-        <input type="email"
-               id="email"
-               name="email"
+        <label for="phoneNumber" class="control-label">Мобильный телефон</label>
+        <input type="tel"
+               pattern="^([+]\d{1,4})?\d{6,10}$"
+               id="phoneNumber"
+               name="phoneNumber"
                class="form-control"
-               [(ngModel)]="email"
-               email="true"
+               [(ngModel)]="phoneNumber"
+               placeholder="+37500112233"
                required>
       </div>
       <div class="form-group">
-        <label for="phoneNumber" class="control-label">Мобильный телефон</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" [(ngModel)]="phoneNumber" required>
+        <label class="control-label">Пол</label>
+        <div class="flex">
+          <div class="radio">
+            <label>
+              <input type="radio" name="gender" value="male" checked>
+              Мужской
+            </label>
+          </div>
+          <div class="radio" style="margin: 10px 0 10px 10px">
+            <label>
+              <input type="radio" name="gender" value="female">
+              Женский
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="birthdate" class="control-label">Дата рождения</label>
+        <input type="date"
+               id="birthdate"
+               name="birthdate"
+               class="form-control"
+               min="1900-01-01"
+               max="2008-01-01"
+               required>
       </div>
       <div class="form-group">
         <label for="password" class="control-label">Пароль</label>
@@ -38,7 +62,7 @@
         <input type="password"  id="confirm" name="confirm" class="form-control" [(ngModel)]="confirm" required>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary form-control mtop20">Регистрация</button>
+        <button class="btn btn-danger form-control mtop20">Регистрация</button>
       </div>
     </form>
   </div>

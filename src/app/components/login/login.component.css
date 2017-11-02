@@ -1,13 +1,6 @@
 a {
   text-decoration: none;
 }
-.restore-link {
-  margin-top: 20px;
-}
-.restore-link > a {
-  font-size: 1.2em;
-  color: #0a68b4;
-}
 .error {
   padding-top: 10px;
 }
