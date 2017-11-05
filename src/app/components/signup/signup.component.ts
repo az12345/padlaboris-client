@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserSignup} from '../../models/user-signup';
-import {NgForm} from '@angular/forms';
+import {FormControl, FormGroup, NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -9,20 +9,28 @@ import {NgForm} from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  password: string;
-  confirm: string;
+  form: FormGroup;
 
-  constructor(public user: UserSignup) { }
+  constructor() {
+    this.form = new FormGroup({
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      email: new FormControl(''),
+      phoneNumber: new FormControl(''),
+      gender: new FormControl('male'),
+      birthDate: new FormControl(''),
+      password: new FormControl(''),
+      confirm: new FormControl(''),
+    });
+  }
 
   ngOnInit() {
   }
 
-  onSubmit(form: NgForm) {
-    form.reset();
+  onSubmit(body) {
+
+    console.log(body);
+    this.form.reset({gender: 'male'});
     return false;
   }
 }
