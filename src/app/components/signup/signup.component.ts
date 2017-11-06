@@ -16,11 +16,11 @@ export class SignupComponent implements OnInit {
       firstName: new FormControl(''),
       lastName: new FormControl(''),
       email: new FormControl(''),
-      phoneNumber: new FormControl(''),
+      mobileNumber: new FormControl(''),
+      homeNumber: new FormControl(''),
       gender: new FormControl('male'),
       birthDate: new FormControl(''),
-      password: new FormControl(''),
-      confirm: new FormControl(''),
+      password: new FormControl('')
     });
   }
 

@@ -1,5 +1,5 @@
 body {
-  background-color: #f8f8f8;
+  background-color: #fafafa;
 }
 
 /*flex*/
@@ -33,6 +33,9 @@ body {
 /*margin*/
 .mtop20 {
   margin-top: 20px;
+}
+.mtop40 {
+  margin-top: 40px;
 }
 .mbottom20 {
   margin-bottom: 20px;

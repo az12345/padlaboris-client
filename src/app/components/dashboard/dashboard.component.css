@@ -30,3 +30,42 @@
   font-weight: 300;
   font-size: 2.5em;
 }
+.header-actions button {
+  width: 200px;
+}
+.header-actions hr {
+  width: 200px;
+  border-top-color: #d8d8d8;
+}
+.tabs a {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+.tab-content p.no-content {
+  font-size: 1.1em;
+  width: 100%;
+  text-align: center;
+}
+.form-wrapper {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(110,110,110,0.51);
+}
+.form {
+  padding: 32px 0;
+  background-color: #fafafa;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.3);
+  border-radius: 2px;
+}
+.form > h3 {
+  width: 100%;
+  padding: 0 40px 30px 40px;
+  margin: 0;
+  font-weight: 300;
+  font-size: 2.2em;
+  border-bottom: 1px solid rgba(217, 217, 217, 0.51);
+}
