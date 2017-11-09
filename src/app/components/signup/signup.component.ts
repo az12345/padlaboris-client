@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {UserSignup} from '../../models/user-signup';
 import {FormControl, FormGroup, NgForm} from '@angular/forms';
 
 @Component({

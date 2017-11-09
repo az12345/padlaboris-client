@@ -1,32 +1,35 @@
 <div class="container-fluid">
   <div class="row jumbotron">
     <div class="container nop dashboard-header flex-center-middle flex-column">
-      <h1>%Username%</h1>
+      <h1>{{userService.user.username}}</h1>
       <h2>Личный кабинет</h2>
       <div class="row" style="width: 100%">
         <div class="col-xs-12 col-sm-6">
           <h3>Информация</h3>
           <dl class="list-unstyled dl-horizontal">
             <dt>Имя</dt>
-            <dd>%FirstName%</dd>
+            <dd>{{userService.user.firstName}}</dd>
             <dt>Фамилия</dt>
-            <dd>%LastName%</dd>
+            <dd>{{userService.user.lastName}}</dd>
             <dt>Личный номер</dt>
-            <dd>%Number%</dd>
+            <dd>666</dd>
             <dt>Пол</dt>
-            <dd>%Gender%</dd>
+            <dd>{{userService.user.gender}}</dd>
             <dt>Дата рождения</dt>
-            <dd>%BirthDate%</dd>
+            <dd>{{userService.user.birthDayDateString()}}</dd>
             <dt>Мобильный номер</dt>
-            <dd>%PhoneNumber%</dd>
+            <dd>{{userService.user.mobileNumber}}</dd>
             <dt>Домашний телефон</dt>
-            <dd>%HomePhoneNumber%</dd>
+            <dd>{{userService.user.homeNumber}}</dd>
           </dl>
         </div>
         <div class="col-xs-12 col-sm-6 flex-center-middle flex-column header-actions">
           <h3>Действия</h3>
           <div class="form-group">
             <button class="btn btn-primary form-control" (click)="showInfo()">Доп. информация</button>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary form-control" (click)="showEdit()">Редактировать</button>
           </div>
           <hr>
           <div class="form-group">
@@ -41,24 +44,68 @@
   </div>
 </div>
 
-<div class="form-wrapper flex-center-middle" style="display: none" (click)="hideWrapper($event)">
+<div class="form-wrapper wrapper-info flex" style="display: none" (click)="hideWrapper($event)">
   <div class="form jumbotron col-xs-12 col-sm-8 col-md-6 col-lg-4">
-    <h3>Подробная информация</h3>
-    <dl class="list-unstyled dl-horizontal">
-      <dt>Рост</dt>
-      <dd>%Height%</dd>
-      <dt>Вес</dt>
-      <dd>%Weight%</dd>
-      <dt>Индекс массы тела</dt>
-      <dd>%BMI%</dd>
-      <dt>Тип крови</dt>
-      <dd>%BloodType%</dd>
-      <dt>Резус-фактор</dt>
-      <dd>%RH%</dd>
-      <dt>Степень инвалидности</dt>
-      <dd>%Degree%</dd>
-    </dl>
+    <div class="form-header">
+      <h3>Подробная информация</h3>
+    </div>
+    <div class="form-body">
+      <dl class="list-unstyled dl-horizontal">
+        <dt>Рост</dt>
+        <dd>%Height%</dd>
+        <dt>Вес</dt>
+        <dd>%Weight%</dd>
+        <dt>Индекс массы тела</dt>
+        <dd>%BMI%</dd>
+        <dt>Тип крови</dt>
+        <dd>%BloodType%</dd>
+        <dt>Резус-фактор</dt>
+        <dd>%RH%</dd>
+        <dt>Степень инвалидности</dt>
+        <dd>%Degree%</dd>
+      </dl>
+    </div>
+    <div class="form-footer flex-center-middle">
+      <button type="button" class="btn btn-default" (click)="hideWrapper($event)">Назад</button>
+    </div>
   </div>
+</div>
+
+<div class="form-wrapper wrapper-edit flex" style="display: none" (click)="hideWrapper($event)">
+  <form (submit)="editProfile(profileEditForm.value, $event)"
+        [formGroup]="profileEditForm"
+        class="form jumbotron col-xs-12 col-sm-8 col-md-6 col-lg-4"
+        ngNativeValidate>
+    <div class="form-header">
+      <h3>Редактировать профиль</h3>
+    </div>
+    <div class="form-body">
+      <div class="form-group">
+        <label for="mobileNumber" class="control-label">Мобильный телефон</label>
+        <input type="tel"
+               pattern="^([+]\d{1,4})?\d{6,10}$"
+               id="mobileNumber"
+               formControlName="mobileNumber"
+               class="form-control"
+               placeholder="+37500112233"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="homeNumber" class="control-label">Домашний телефон</label>
+        <input type="tel"
+               pattern="^\d{6,10}$"
+               id="homeNumber"
+               formControlName="homeNumber"
+               class="form-control"
+               placeholder="712690"
+               required>
+      </div>
+    </div>
+    <div class="form-footer flex-center-middle">
+      <button type="button" class="btn btn-default" (click)="hideWrapper($event)">Назад</button>
+      <button type="submit" class="btn btn-primary mleft20">Сохранить</button>
+    </div>
+  </form>
 </div>
 
 <div class="container history">

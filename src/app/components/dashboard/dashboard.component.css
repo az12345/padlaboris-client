@@ -16,13 +16,16 @@
   font-weight: 300;
   font-size: 1.8em;
 }
-.dashboard-header dl > * {
+.dl-horizontal {
+  margin-bottom: 0;
+}
+.dl-horizontal > * {
   font-size: 1.25em;
 }
-.dashboard-header dl > dt {
+.dl-horizontal > dt {
   text-align: left;
 }
-.dashboard-header dl > dd {
+.dl-horizontal > dd {
   margin-top: 4px;
   margin-bottom: 4px;
 }
@@ -54,18 +57,34 @@
   bottom: 0;
   right: 0;
   background-color: rgba(110,110,110,0.51);
+  overflow-y: auto;
 }
 .form {
-  padding: 32px 0;
+  padding: 0;
+  margin: auto;
   background-color: #fafafa;
   box-shadow: 0 1px 10px rgba(0,0,0,0.3);
   border-radius: 2px;
 }
-.form > h3 {
+.form-header, .form-body, .form-footer {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.form > .form-header {
   width: 100%;
-  padding: 0 40px 30px 40px;
-  margin: 0;
-  font-weight: 300;
-  font-size: 2.2em;
+  padding: 30px;
   border-bottom: 1px solid rgba(217, 217, 217, 0.51);
 }
+.form > .form-header > h3 {
+  font-weight: 300;
+  font-size: 2.2em;
+  margin: 0;
+}
+.form > .form-body {
+  padding: 30px;
+}
+.form > .form-footer {
+  padding: 30px;
+  border-top: 1px solid rgba(217, 217, 217, 0.51);
+}
+

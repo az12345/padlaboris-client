@@ -12,8 +12,7 @@ import {User} from "../../models/user";
 export class HeaderComponent implements OnInit {
 
 
-  constructor(private userService: UserService,
-              private authService: AuthService,
+  constructor(private authService: AuthService,
               private router: Router) { }
 
   ngOnInit() {

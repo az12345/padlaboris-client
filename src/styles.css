@@ -40,6 +40,20 @@ body {
 .mbottom20 {
   margin-bottom: 20px;
 }
+.mleft20 {
+  margin-left: 20px;
+}
+.mright20 {
+  margin-right: 20px;
+}
 .nom {
   margin: 0;
+}
+
+/*button*/
+.btn {
+  min-width: 120px;
+}
+.btn-default {
+  background-color: #e4e4e4;
 }

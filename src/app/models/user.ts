@@ -1,14 +1,14 @@
 export class User {
+
   private _username: string;
   private _password: string;
   private _firstName: string;
   private _lastName: string;
   private _gender: string;
   private _birthDate: number;
-  private _phoneNumber: string;
-
-  constructor() {
-  }
+  private _mobileNumber: string;
+  private _homeNumber: string;
+  private _lastChangeDate: number;
 
   get username(): string {
     return this._username;
@@ -58,11 +58,35 @@ export class User {
     this._birthDate = value;
   }
 
-  get phoneNumber(): string {
-    return this._phoneNumber;
+  get mobileNumber(): string {
+    return this._mobileNumber;
   }
 
-  set phoneNumber(value: string) {
-    this._phoneNumber = value;
+  set mobileNumber(value: string) {
+    this._mobileNumber = value;
+  }
+
+  get homeNumber(): string {
+    return this._homeNumber;
+  }
+
+  set homeNumber(value: string) {
+    this._homeNumber = value;
+  }
+
+  get lastChangeDate(): number {
+    return this._lastChangeDate;
+  }
+
+  set lastChangeDate(value: number) {
+    this._lastChangeDate = value;
+  }
+
+  birthDayDateString(): string {
+    return new Date(this._birthDate).toDateString();
+  }
+
+  lastChangeDateString(): string {
+    return new Date(this._lastChangeDate).toDateString();
   }
 }

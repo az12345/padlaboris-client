@@ -20,7 +20,6 @@ import { AuthService } from './services/auth.service';
 
 /*models*/
 import { User } from './models/user';
-import { UserSignup } from './models/user-signup';
 
 /*guards*/
 import { AuthGuard } from './guards/auth.guard';
@@ -57,7 +56,6 @@ const routes = [
     AuthService,
     UserService,
     User,
-    UserSignup,
     AuthGuard
   ],
   bootstrap: [AppComponent]

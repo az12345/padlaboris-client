@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
-import {UserSignup} from '../models/user-signup';
+import {User} from "../models/user";
+import {UserService} from "./user.service";
 
 @Injectable()
 export class AuthService {
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   login(username: string, password: string) {
     if (username === 'admin' && password === 'admin') {
-      localStorage.setItem('user', JSON.stringify({
-        username,
-        firstName: 'Tomas',
-        lastName: 'Kolbasso',
-        birthDate: '19.09.1997',
-        lasChangeDate: '21.10.2020',
-        gender: 'Male',
-        homeNumber: '5553535',
-        mobileNumber: '33366691'}));
+      const user = new User();
+
+      user.firstName = 'Tomas';
+      user.lastName = 'Kolbasso';
+      user.username = user.firstName + ' ' + user.lastName;
+      user.gender = 'Male';
+      user.birthDate = new Date().getTime();
+      user.lastChangeDate = new Date().getTime();
+      user.homeNumber = '5553535';
+      user.mobileNumber = '33366691';
+
+      this.userService.user = user;
+      localStorage.setItem('user', JSON.stringify(user));
       return true;
     }
 
@@ -33,9 +38,5 @@ export class AuthService {
 
   getAuthentication() {
     return localStorage.getItem('user');
-  }
-
-  signUp(user: UserSignup) {
-    return true;
   }
 }
