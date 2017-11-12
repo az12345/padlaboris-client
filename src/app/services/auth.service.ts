@@ -1,42 +1,41 @@
-import { Injectable } from '@angular/core';
-import {User} from "../models/user";
-import {UserService} from "./user.service";
+import {Injectable} from '@angular/core';
+import {Patient} from "../models/patient";
 
 @Injectable()
 export class AuthService {
 
-  constructor(private userService: UserService) { }
+  constructor() { }
 
-  login(username: string, password: string) {
+  static login(username: string, password: string) {
     if (username === 'admin' && password === 'admin') {
-      const user = new User();
+      const patient = new Patient();
 
-      user.firstName = 'Tomas';
-      user.lastName = 'Kolbasso';
-      user.username = user.firstName + ' ' + user.lastName;
-      user.gender = 'Male';
-      user.birthDate = new Date().getTime();
-      user.lastChangeDate = new Date().getTime();
-      user.homeNumber = '5553535';
-      user.mobileNumber = '33366691';
+      patient.id = 1;
+      patient.firstName = 'Tomas';
+      patient.lastName = 'Kolbasso';
+      patient.username = patient.firstName + ' ' + patient.lastName;
+      patient.gender = 'Male';
+      patient.birthDate = new Date().getTime();
+      patient.lastChangeDate = new Date().getTime();
+      patient.homeNumber = '5553535';
+      patient.mobileNumber = '33366691';
 
-      this.userService.user = user;
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('patient', JSON.stringify(patient));
       return true;
     }
 
     return false;
   }
 
-  logout() {
-    localStorage.removeItem('user');
+  static logout() {
+    localStorage.removeItem('patient');
   }
 
-  isAuthenticated() {
-    return localStorage.getItem('user') != null;
+  static isAuthenticated() {
+    return localStorage.getItem('patient') != null;
   }
 
-  getAuthentication() {
-    return localStorage.getItem('user');
+  static getAuthentication() {
+    return localStorage.getItem('patient');
   }
 }

@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
-import {User} from '../../models/user';
+import {Patient} from '../../models/patient';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {UserService} from "../../services/user.service";
+import {Procedure} from "../../models/procedure";
+import {AuthService} from "../../services/auth.service";
+import {Urls} from "../../util/urls";
+import {Disease} from "../../models/disease";
+import {Leave} from "../../models/leave";
+import {Doctor} from "../../models/doctor";
+import {Recipe} from "../../models/recipe";
 
 declare var jquery: any;
 declare var $: any;
@@ -14,11 +20,17 @@ declare var $: any;
 })
 export class DashboardComponent implements OnInit {
 
+  patient: Patient = JSON.parse(AuthService.getAuthentication());
+  diseases: Disease[] = [];
+  leaves: Leave[] = [];
+  doctors: Doctor[] = [];
+  procedures: Procedure[] = [];
+  recipes: Recipe[] = [];
+
   profileEditForm: FormGroup;
 
   constructor(private http: Http,
-              private fb: FormBuilder,
-              public userService: UserService) {
+              private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -52,12 +64,35 @@ export class DashboardComponent implements OnInit {
   editProfile(body, $event: Event) {
     console.log(body);
 
-
-
-
     this.profileEditForm.reset();
     $('.form-wrapper').hide();
 
     return false;
+  }
+
+  getProcedures() {
+    console.log(this.patient);
+    this.http.get(Urls.getPatientProcedures(this.patient.id))
+      .subscribe(data => {
+        this.procedures = data.json();
+      }, err => {
+
+      });
+  }
+
+  getDiseases() {
+
+  }
+
+  getLeaves() {
+
+  }
+
+  getMds() {
+
+  }
+
+  getRecipes() {
+
   }
 }
