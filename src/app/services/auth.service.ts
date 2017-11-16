@@ -6,36 +6,28 @@ export class AuthService {
 
   constructor() { }
 
-  static login(username: string, password: string) {
-    if (username === 'admin' && password === 'admin') {
-      const patient = new Patient();
-
-      patient.id = 1;
-      patient.firstName = 'Tomas';
-      patient.lastName = 'Kolbasso';
-      patient.username = patient.firstName + ' ' + patient.lastName;
-      patient.gender = 'Male';
-      patient.birthDate = new Date().getTime();
-      patient.lastChangeDate = new Date().getTime();
-      patient.homeNumber = '5553535';
-      patient.mobileNumber = '33366691';
-
-      localStorage.setItem('patient', JSON.stringify(patient));
-      return true;
-    }
-
-    return false;
-  }
-
   static logout() {
     localStorage.removeItem('patient');
+    localStorage.removeItem('token');
   }
 
   static isAuthenticated() {
-    return localStorage.getItem('patient') != null;
+    return AuthService.getToken() != null;
   }
 
-  static getAuthentication() {
+  static setAuthentication(patient: Patient) {
+    localStorage.setItem('patient', JSON.stringify(patient));
+  }
+
+  static getAuthentication(): any {
     return localStorage.getItem('patient');
+  }
+
+  static setToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  static getToken() {
+    return localStorage.getItem('token');
   }
 }

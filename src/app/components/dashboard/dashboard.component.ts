@@ -9,8 +9,9 @@ import {Disease} from "../../models/disease";
 import {Leave} from "../../models/leave";
 import {Doctor} from "../../models/doctor";
 import {Recipe} from "../../models/recipe";
+import {HeaderUtils} from "../../util/header-utils";
+import {HttpHandler} from "../../util/httphandler";
 
-declare var jquery: any;
 declare var $: any;
 
 @Component({
@@ -20,7 +21,7 @@ declare var $: any;
 })
 export class DashboardComponent implements OnInit {
 
-  patient: Patient = JSON.parse(AuthService.getAuthentication());
+  patient: Patient;
   diseases: Disease[] = [];
   leaves: Leave[] = [];
   doctors: Doctor[] = [];
@@ -29,11 +30,23 @@ export class DashboardComponent implements OnInit {
 
   profileEditForm: FormGroup;
 
-  constructor(private http: Http,
+  constructor(private http: HttpHandler,
               private fb: FormBuilder) {
   }
 
   ngOnInit() {
+
+    $('.load-screen').addClass('on');
+
+    this.http.get(Urls.getPatient(1),
+      {headers: HeaderUtils.withToken()})
+      .subscribe(data => {
+        this.patient = data.json();
+        AuthService.setAuthentication(this.patient);
+        setTimeout(function () {
+          $('.load-screen').removeClass('on');
+        }, 500);
+      });
     this.initForms();
   }
 
@@ -62,7 +75,6 @@ export class DashboardComponent implements OnInit {
   }
 
   editProfile(body, $event: Event) {
-    console.log(body);
 
     this.profileEditForm.reset();
     $('.form-wrapper').hide();
@@ -71,17 +83,21 @@ export class DashboardComponent implements OnInit {
   }
 
   getProcedures() {
-    console.log(this.patient);
-    this.http.get(Urls.getPatientProcedures(this.patient.id))
+
+    this.http.get(Urls.getPatientProcedures(this.patient.id),
+      {headers: HeaderUtils.withToken()})
       .subscribe(data => {
         this.procedures = data.json();
-      }, err => {
-
       });
   }
 
   getDiseases() {
 
+    this.http.get(Urls.getPatientDiseases(this.patient.id),
+      {headers: HeaderUtils.withToken()})
+      .subscribe(data => {
+        this.diseases = data.json();
+      });
   }
 
   getLeaves() {
@@ -94,5 +110,14 @@ export class DashboardComponent implements OnInit {
 
   getRecipes() {
 
+    this.http.get(Urls.getPatientProcedures(this.patient.id),
+      {headers: HeaderUtils.withToken()})
+      .subscribe(data => {
+        this.procedures = data.json();
+      });
+  }
+
+  dateString(ms: number) {
+    return new Date(ms).toDateString();
   }
 }

@@ -1,3 +1,5 @@
+import {Patient} from "./patient";
+
 export class Disease {
 
   id: number;
@@ -7,4 +9,5 @@ export class Disease {
   diseaseDescription: string;
   startDate: number;
   endDate: number;
+  patient: Patient;
 }

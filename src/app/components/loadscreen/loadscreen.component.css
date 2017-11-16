@@ -1,0 +1,15 @@
+.load-screen {
+  position: fixed;
+  z-index: -1;
+  opacity: 0;
+  transition: all 0.3s ease;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #f4f4f4;
+}
+.load-screen.on {
+  z-index: 9;
+  opacity: 1;
+}

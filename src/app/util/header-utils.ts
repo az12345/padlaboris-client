@@ -10,14 +10,14 @@ export class HeaderUtils {
 
   static withToken() {
     const headers = new Headers();
-    headers.append('Authorization', localStorage.getItem("token"));
+    headers.append('Token', localStorage.getItem("token"));
     return headers;
   }
 
   static withJsonAndToken() {
     const headers = new Headers();
     headers.append('Content-type', 'application/json');
-    headers.append('Authorization', localStorage.getItem("token"));
+    headers.append('Token', localStorage.getItem("token"));
     return headers;
   }
 

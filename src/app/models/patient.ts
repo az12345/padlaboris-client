@@ -1,3 +1,5 @@
+import {Details} from "./details";
+
 export class Patient {
 
   id: number;
@@ -10,4 +12,5 @@ export class Patient {
   mobileNumber: string;
   homeNumber: string;
   lastChangeDate: number;
+  details: Details;
 }

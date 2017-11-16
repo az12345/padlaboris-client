@@ -18,3 +18,13 @@ a {
   border-radius: 2px;
   padding: 45px;
 }
+.progress {
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+.progress.on {
+  opacity: 1;
+}
+.progress-bar.active {
+  animation-duration: 0.25s;
+}

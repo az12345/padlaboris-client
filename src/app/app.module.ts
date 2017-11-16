@@ -12,12 +12,14 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {AboutComponent} from './components/about/about.component';
 import {LoginComponent} from './components/login/login.component';
 import {SignupComponent} from './components/signup/signup.component';
+import { LoadscreenComponent } from './components/loadscreen/loadscreen.component';
 /*services*/
 import {AuthService} from './services/auth.service';
 /*models*/
 import {Patient} from './models/patient';
 /*guards*/
 import {AuthGuard} from './guards/auth.guard';
+import {HttpHandler} from "./util/httphandler";
 
 const routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -39,6 +41,7 @@ const routes = [
     AboutComponent,
     LoginComponent,
     SignupComponent,
+    LoadscreenComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ const routes = [
   providers: [
     AuthService,
     Patient,
-    AuthGuard
+    AuthGuard,
+    HttpHandler
   ],
   bootstrap: [AppComponent]
 })
