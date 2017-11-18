@@ -110,8 +110,8 @@
 <div class="form-wrapper wrapper-add-procedure flex"
      style="display: none"
      (click)="hideWrapper($event)">
-  <form (submit)="addProcedure(addProcedureForm.value)"
-        [formGroup]="addProcedureForm"
+  <form (submit)="addProcedure(procedureAddForm.value)"
+        [formGroup]="procedureAddForm"
         class="form jumbotron col-xs-12 col-sm-8 col-md-6 col-lg-4"
         ngNativeValidate>
     <div class="form-header">
@@ -128,10 +128,139 @@
       </div>
     </div>
     <div class="form-footer flex-center-middle">
-      <button type="button" class="btn btn-default" (click)="hideWrapper($event)">Отмена</button>
+      <button type="button" class="btn btn-default" (click)="hideWrapper($event)">Назад</button>
       <button type="submit" class="btn btn-primary mleft20">Принять</button>
     </div>
   </form>
+</div>
+
+<div class="form-wrapper wrapper-add-disease flex"
+     style="display: none"
+     (click)="hideWrapper($event)">
+  <form (submit)="addDisease(diseaseAddForm.value)"
+        [formGroup]="diseaseAddForm"
+        class="form jumbotron col-xs-12 col-sm-8 col-md-6 col-lg-4"
+        ngNativeValidate>
+    <div class="form-header">
+      <h3>Добавить болезнь</h3>
+    </div>
+    <div class="form-body">
+      <div class="form-group">
+        <label class="control-label">Название болезни</label>
+        <input type="text"
+               formControlName="diseaseName"
+               class="form-control"
+               required>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Описание болезни</label>
+        <input type="text"
+               formControlName="diseaseDescription"
+               class="form-control"
+               required>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Код болезни</label>
+        <input type="text"
+               formControlName="diseaseCode"
+               class="form-control"
+               required>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Класс болезни</label>
+        <input type="text"
+               formControlName="diseaseClass"
+               class="form-control"
+               required>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Дата начала</label>
+        <input type="date"
+               formControlName="startDate"
+               class="form-control"
+               required>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Дата окончания</label>
+        <input type="date"
+               formControlName="endDate"
+               class="form-control">
+      </div>
+    </div>
+    <div class="form-footer flex-center-middle">
+      <button type="button"
+              class="btn btn-default"
+              (click)="hideWrapper($event)">Назад</button>
+      <button type="submit"
+              class="btn btn-primary mleft20">Принять</button>
+    </div>
+  </form>
+</div>
+
+<div class="form-wrapper wrapper-edit-recipe flex"
+     style="display: none"
+     (click)="hideWrapper($event)">
+  <form [formGroup]="recipeEditForm"
+        (submit)="editRecipe(recipeEditForm.value)"
+        class="form jumbotron col-xs-12 col-sm-8 col-md-6 col-lg-4"
+        ngNativeValidate>
+    <div class="form-header">
+      <h3>Изменить рецепт</h3>
+    </div>
+    <div class="form-body">
+      <div class="form-group">
+        <label class="control-label">Лекарство</label>
+        <input type="text"
+               formControlName="medicineName"
+               class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Употребление</label>
+        <input type="text"
+               formControlName="dosage"
+               class="form-control">
+      </div>
+      <div class="form-group">
+        <label class="control-label">Дата выдачи</label>
+        <input type="date"
+               formControlName="issueDate"
+               class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Годен до</label>
+        <input type="date"
+               formControlName="expireDate"
+               class="form-control" required>
+      </div>
+    </div>
+    <div class="form-footer flex-center-middle">
+      <button type="button"
+              class="btn btn-default"
+              (click)="hideWrapper($event)">Назад</button>
+      <button type="submit"
+              class="btn btn-success mleft20">Принять</button>
+    </div>
+  </form>
+</div>
+<div class="form-wrapper wrapper-delete-recipe flex"
+     style="display: none"
+     (click)="hideWrapper($event)">
+  <div class="form">
+    <div class="form-header">
+      <h3>Подтверждение удаления</h3>
+    </div>
+    <div class="form-body">
+      <p>Вы уверены?</p>
+    </div>
+    <div class="form-footer flex-center-middle">
+      <button type="button"
+              class="btn btn-default"
+              (click)="hideWrapper($event)">Нет</button>
+      <button type="submit"
+              class="btn btn-danger mleft20"
+              (click)="deleteRecipe()">Да</button>
+    </div>
+  </div>
 </div>
 
 <div class="container history" *ngIf="patient">
@@ -149,19 +278,22 @@
     </ul>
     <div class="tab-content mtop40">
       <div class="tab-pane fade" id="diseases">
-        <div class="flex-center-middle" *ngIf="diseases.length == 0">
+        <div class="flex-center-middle flex-column" *ngIf="diseases.length == 0">
           <p class="no-content" >
             Список болезней пуст...
           </p>
-          <button class="btn btn-primary mtop20">Добавить</button>
+          <button class="btn btn-primary mtop20"
+                  (click)="showAddDisease()">Добавить</button>
         </div>
         <div *ngIf="diseases.length > 0" class="tab-grid">
           <div class="tab-header">
             <p>Всего: {{diseases.length}}</p>
-            <button class="btn btn-primary mleft20">Добавить</button>
+            <button class="btn btn-primary mleft20"
+                    (click)="showAddDisease()">Добавить</button>
           </div>
           <div class="tab-grid-item-wrapper" *ngFor="let disease of diseases; let i = index">
-            <div class="tab-grid-item col-xs-12 col-sm-6 col-md-4">
+            <div class="tab-grid-item col-xs-12 col-sm-6 col-md-4"
+                 (click)="showDisease(disease, $event)">
               <div>
                 <h3>{{i + 1}}. {{disease.diseaseName}}</h3>
                 <p><strong>Начало:</strong></p>
@@ -179,6 +311,57 @@
                 </div>
               </div>
             </div>
+            <div class="form-wrapper wrapper-disease flex"
+                 style="display: none"
+                 (click)="hideWrapper($event)">
+              <div class="form jumbotron col-xs-12 col-sm-8 col-md-7 col-lg-5">
+                <div class="form-header">
+                  <h3>{{disease.diseaseName}}</h3>
+                </div>
+                <div class="form-body">
+                  <dl class="list-unstyled dl-horizontal">
+                    <dt>Описание болезни</dt>
+                    <dd>{{disease.diseaseDescription}}</dd>
+                    <dt>Код болезни</dt>
+                    <dd>{{disease.diseaseCode}}</dd>
+                    <dt>Класс болезни</dt>
+                    <dd>{{disease.diseaseClass}}</dd>
+                  </dl>
+                  <hr>
+                  <h4>Рецепты</h4>
+                  <div class="flex-middle">
+                    <p style="margin: 0;">Всего: {{recipes.length}}</p>
+                    <button class="btn btn-sm btn-primary mleft20"
+                            (click)="showAddRecipe($event)">Добавить</button>
+                  </div>
+                  <div *ngIf="recipes" class="recipes">
+                    <div *ngFor="let recipe of recipes" class="recipe-item">
+                      <dl class="list-unstyled dl-horizontal">
+                        <dt>Лекарство</dt>
+                        <dd>{{recipe.medicineName}}</dd>
+                        <dt>Употребление</dt>
+                        <dd>{{recipe.dosage}}</dd>
+                        <dt>Дата выдачи</dt>
+                        <dd>{{dateString(recipe.issueDate)}}</dd>
+                        <dt>Годен до</dt>
+                        <dd>{{dateString(recipe.expireDate)}}</dd>
+                      </dl>
+                      <div class="flex">
+                        <button class="btn btn-sm btn-primary"
+                                (click)="showEditRecipe(recipe)">Изменить</button>
+                        <button class="btn btn-sm btn-danger"
+                                (click)="showDeleteRecipe(recipe)">Удалить</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-footer flex-center-middle">
+                  <button type="button"
+                          class="btn btn-default"
+                          (click)="hideWrapper($event)">Назад</button>
+                </div>
+              </div>
+            </div>
             <div class="form-wrapper wrapper-edit-disease flex"
                  style="display: none"
                  (click)="hideWrapper($event)">
@@ -191,49 +374,43 @@
                 </div>
                 <div class="form-body">
                   <div class="form-group">
-                    <label for="diseaseName" class="control-label">Название болезни</label>
+                    <label class="control-label">Название болезни</label>
                     <input type="text"
-                           id="diseaseName"
                            formControlName="diseaseName"
                            class="form-control"
                            required>
                   </div>
                   <div class="form-group">
-                    <label for="diseaseDescription" class="control-label">Описание болезни</label>
+                    <label class="control-label">Описание болезни</label>
                     <input type="text"
-                           id="diseaseDescription"
                            formControlName="diseaseDescription"
                            class="form-control"
                            required>
                   </div>
                   <div class="form-group">
-                    <label for="diseaseCode" class="control-label">Код болезни</label>
+                    <label class="control-label">Код болезни</label>
                     <input type="text"
-                           id="diseaseCode"
                            formControlName="diseaseCode"
                            class="form-control"
                            required>
                   </div>
                   <div class="form-group">
-                    <label for="diseaseClass" class="control-label">Класс болезни</label>
+                    <label  class="control-label">Класс болезни</label>
                     <input type="text"
-                           id="diseaseClass"
                            formControlName="diseaseClass"
                            class="form-control"
                            required>
                   </div>
                   <div class="form-group">
-                    <label for="startDate" class="control-label">Дата начала</label>
+                    <label class="control-label">Дата начала</label>
                     <input type="date"
-                           id="startDate"
                            formControlName="startDate"
                            class="form-control"
                            required>
                   </div>
                   <div class="form-group">
-                    <label for="endDate" class="control-label">Дата окончания</label>
+                    <label class="control-label">Дата окончания</label>
                     <input type="date"
-                           id="endDate"
                            formControlName="endDate"
                            class="form-control">
                   </div>
@@ -267,22 +444,57 @@
                 </div>
               </div>
             </div>
+            <div class="form-wrapper wrapper-add-recipe flex"
+                 style="display: none"
+                 (click)="hideWrapper($event)">
+              <form [formGroup]="recipeAddForm"
+                    (submit)="addRecipe(disease, recipeAddForm.value)"
+                    class="form jumbotron col-xs-12 col-sm-8 col-md-6 col-lg-4"
+                    ngNativeValidate>
+                <div class="form-header">
+                  <h2>Добавить рецепт</h2>
+                </div>
+                <div class="form-body">
+                  <div class="form-group">
+                    <label class="control-label">Лекарство</label>
+                    <input type="text"
+                           formControlName="medicineName"
+                           class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Употребление</label>
+                    <input type="text"
+                           formControlName="dosage"
+                           class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Дата выдачи</label>
+                    <input type="date"
+                           formControlName="issueDate"
+                           class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Годен до</label>
+                    <input type="date"
+                           formControlName="expireDate"
+                           class="form-control" required>
+                  </div>
+                </div>
+                <div class="form-footer flex-center-middle">
+                  <button type="button"
+                          class="btn btn-default"
+                          (click)="hideWrapper($event)">Назад</button>
+                  <button type="submit"
+                          class="btn btn-danger mleft20">Принять</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="leaves">
-        <p class="no-content" *ngIf="leaves.length == 0">
-          Вы пока не получали справок...
-        </p>
-      </div>
-      <div class="tab-pane fade" id="mds">
-        <p class="no-content" *ngIf="doctors.length == 0">
-          Вы пока не записаны ни у одного врача...
-        </p>
-      </div>
       <div class="tab-pane fade" id="procedures">
         <p class="no-content" *ngIf="procedures.length == 0">
-          Список пройденных процедур пуст...
+          Список процедур пуст...
         </p>
         <div *ngIf="procedures.length > 0" class="tab-grid">
           <div class="tab-header">
@@ -301,11 +513,11 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="recipes">
-        <p class="no-content" *ngIf="recipes.length == 0">
-          Вы пока не получали рецепты от врачей...
-        </p>
-      </div>
     </div>
   </div>
+</div>
+
+<div class="message-popup alert alert-success">
+  <h4></h4>
+  <p></p>
 </div>

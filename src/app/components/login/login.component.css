@@ -10,6 +10,7 @@ a {
   font-size: 1.2em;
 }
 .container {
+  margin-top: 64px;
   padding-top: 30px;
 }
 .jumbotron {

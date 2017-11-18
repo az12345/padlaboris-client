@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
 import {Patient} from '../../models/patient';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Procedure} from "../../models/procedure";
@@ -7,7 +6,6 @@ import {AuthService} from "../../services/auth.service";
 import {Urls} from "../../util/urls";
 import {Disease} from "../../models/disease";
 import {Leave} from "../../models/leave";
-import {Doctor} from "../../models/doctor";
 import {Recipe} from "../../models/recipe";
 import {HeaderUtils} from "../../util/header-utils";
 import {HttpHandler} from "../../util/httphandler";
@@ -21,16 +19,24 @@ declare var $: any;
 })
 export class DashboardComponent implements OnInit {
 
+  private labelSuccess = 'Операция завершена!';
+  private labelFail = 'Ошибка';
+
   patient: Patient;
   diseases: Disease[] = [];
   leaves: Leave[] = [];
-  doctors: Doctor[] = [];
   procedures: Procedure[] = [];
   recipes: Recipe[] = [];
 
+  recipeToEdit: Recipe = null;
+  recipeToDelete: Recipe = null;
+
   profileEditForm: FormGroup;
   diseaseEditForm: FormGroup;
-  addProcedureForm: FormGroup;
+  procedureAddForm: FormGroup;
+  diseaseAddForm: FormGroup;
+  recipeAddForm: FormGroup;
+  recipeEditForm: FormGroup;
 
   constructor(private http: HttpHandler,
               private fb: FormBuilder) {
@@ -65,9 +71,29 @@ export class DashboardComponent implements OnInit {
       startDate: [''],
       endDate: ['']
     });
-    this.addProcedureForm = this.fb.group({
+    this.diseaseAddForm = this.fb.group({
+      diseaseName: [''],
+      diseaseCode: [''],
+      diseaseClass: [''],
+      diseaseDescription: [''],
+      startDate: [''],
+      endDate: ['']
+    });
+    this.procedureAddForm = this.fb.group({
       name: [''],
       date: ['']
+    });
+    this.recipeAddForm = this.fb.group({
+      issueDate: [''],
+      expireDate: [''],
+      medicineName: [''],
+      dosage: ['']
+    });
+    this.recipeEditForm = this.fb.group({
+      issueDate: [''],
+      expireDate: [''],
+      medicineName: [''],
+      dosage: ['']
     });
   }
 
@@ -104,8 +130,9 @@ export class DashboardComponent implements OnInit {
       homeNumber: body.homeNumber
     }, {headers: HeaderUtils.withJsonAndToken()}).subscribe(data => {
       this.patient = data.json();
+      this.showMessagePopup(this.labelSuccess, 'Пациент успешно обновлен!');
     }, err => {
-      console.log('Failed to update patient');
+      this.showMessagePopup(this.labelFail, 'Не удалось обновить пациента.', true);
     });
 
     this.profileEditForm.reset();
@@ -141,10 +168,6 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  createDisease(body) {
-
-  }
-
   dateString(ms: number) {
     if (!ms) {
       return "";
@@ -160,14 +183,15 @@ export class DashboardComponent implements OnInit {
   deleteDisease(disease: Disease) {
     this.http.delete(Urls.deletePatientDisease(this.patient.id, disease.id),
       {headers: HeaderUtils.withToken()}).subscribe(data => {
-        for (let i = 0; i < this.diseases.length; i++) {
-          if (this.diseases[i].id === disease.id) {
-            this.diseases.splice(i, 1);
-            $('.form-wrapper').hide();
-          }
+      for (let i = 0; i < this.diseases.length; i++) {
+        if (this.diseases[i].id === disease.id) {
+          this.diseases.splice(i, 1);
+          $('.form-wrapper').hide();
+          this.showMessagePopup(this.labelSuccess, 'Болезнь успешно удалена!');
         }
+      }
     }, err => {
-        console.log('Error occurred while delete disease ' + disease.id);
+      this.showMessagePopup(this.labelFail, 'Не удалось удалить болезнь.', true);
     });
   }
 
@@ -178,7 +202,7 @@ export class DashboardComponent implements OnInit {
 
   editDisease(disease: Disease, value: any) {
 
-    this.http.put(Urls.postPatientDisease(this.patient.id),
+    this.http.put(Urls.putPatientDisease(this.patient.id),
       {
         id: disease.id,
         diseaseName: value.diseaseName,
@@ -194,10 +218,11 @@ export class DashboardComponent implements OnInit {
           if (this.diseases[i].id === disease.id) {
             this.diseases[i] = data.json();
             $('.form-wrapper').hide();
+            this.showMessagePopup(this.labelSuccess, 'Болезнь успешно изменена!');
           }
         }
       }, err => {
-        console.log('Error occurred creating disease');
+        this.showMessagePopup(this.labelFail, 'Не удалось изменить болезнь.', true);
       });
     this.diseaseEditForm.reset();
   }
@@ -213,10 +238,135 @@ export class DashboardComponent implements OnInit {
     }, {headers: HeaderUtils.withJsonAndToken()}).subscribe(data => {
       this.procedures.push(data.json());
       $('.form-wrapper').hide();
+      this.showMessagePopup(this.labelSuccess, 'Процедура успешно добавлена!');
     }, err => {
-      console.log('Failed to create a procedure');
+      this.showMessagePopup(this.labelFail, 'Не удалось добавить процедуру.', true);
     });
 
-    this.addProcedureForm.reset();
+    this.procedureAddForm.reset();
+  }
+
+  showAddDisease() {
+    $('.wrapper-add-disease').show();
+  }
+
+  addDisease(value: any) {
+    this.http.post(Urls.postPatientDisease(this.patient.id), {
+      diseaseName: value.diseaseName,
+      diseaseDescription: value.diseaseDescription,
+      diseaseCode: value.diseaseCode,
+      diseaseClass: value.diseaseClass,
+      startDate: new Date(value.startDate).getTime(),
+      endDate: new Date(value.endDate).getTime(),
+    }, {headers: HeaderUtils.withJsonAndToken()}).subscribe(data => {
+      this.diseases.push(data.json());
+      $('.form-wrapper').hide();
+      this.showMessagePopup(this.labelSuccess, 'Болезнь успешно добавлена!');
+    }, err => {
+      this.showMessagePopup(this.labelFail, 'Не удалось добавить болезнь.', true);
+    });
+
+    this.diseaseAddForm.reset();
+  }
+
+  showDisease(disease: Disease, $event: Event) {
+    const target = $($event.target);
+    if (target.is('button') || target.is('a')) {
+      return;
+    }
+
+    this.http.get(Urls.getDiseaseRecipes(disease.id),
+      {headers: HeaderUtils.withToken()})
+      .subscribe(data => {
+        this.recipes = data.json();
+      });
+
+    target.closest('.tab-grid-item-wrapper')
+      .find('.wrapper-disease').show();
+  }
+
+  showAddRecipe($event: Event) {
+    $('.form-wrapper').hide(); // hide disease
+    $($event.target).closest('.tab-grid-item-wrapper')
+      .find('.wrapper-add-recipe').show();
+  }
+
+  addRecipe(disease: Disease, value: any) {
+    this.http.post(Urls.postDiseaseRecipe(disease.id), {
+      issueDate: new Date(value.issueDate).getTime(),
+      expireDate: new Date(value.expireDate).getTime(),
+      medicineName: value.medicineName,
+      dosage: value.dosage
+    }, {headers: HeaderUtils.withJsonAndToken()}).subscribe(data => {
+      this.recipes.push(data.json());
+      $('.form-wrapper').hide();
+      this.showMessagePopup(this.labelSuccess, 'Рецепт успешно добавлен!');
+    }, err => {
+      this.showMessagePopup(this.labelFail, 'Не удалось добавить рецепт.', true);
+    });
+
+    this.recipeAddForm.reset();
+  }
+
+  editRecipe(value: any) {
+    this.http.post(Urls.postDiseaseRecipe(this.recipeToEdit.disease.id), {
+      id: this.recipeToEdit.id,
+      issueDate: new Date(value.issueDate).getTime(),
+      expireDate: new Date(value.expireDate).getTime(),
+      medicineName: value.medicineName,
+      dosage: value.dosage
+    }, {headers: HeaderUtils.withJsonAndToken()}).subscribe(data => {
+      for (let i = 0; i < this.recipes.length; i++) {
+        if (this.recipes[i].id === this.recipeToEdit.id) {
+          this.recipes[i] = data.json();
+          $('.form-wrapper').hide();
+          this.showMessagePopup(this.labelSuccess, 'Рецепт успешно изменен!');
+        }
+      }
+    }, err => {
+      this.showMessagePopup(this.labelFail, 'Не удалось изменить рецепт.', true);
+    });
+
+    this.recipeEditForm.reset();
+  }
+
+  showEditRecipe(recipe: Recipe) {
+    this.recipeToEdit = recipe;
+    $('.form-wrapper').hide();
+    $('.wrapper-edit-recipe').show();
+  }
+
+  showDeleteRecipe(recipe: Recipe) {
+    this.recipeToDelete = recipe;
+    $('.form-wrapper').hide();
+    $('.wrapper-delete-recipe').show();
+  }
+
+  deleteRecipe() {
+    this.http.delete(Urls.deleteDiseaseRecipe(
+      this.recipeToDelete.disease.id, this.recipeToDelete.id),
+      {headers: HeaderUtils.withToken()}).subscribe(data => {
+      $('.form-wrapper').hide();
+      this.showMessagePopup(this.labelSuccess, 'Рецепт успешно удален!');
+    }, err => {
+      this.showMessagePopup(this.labelFail, 'Не удалось удалить рецепт.', true);
+    });
+  }
+
+  showMessagePopup(label, message, fail = false) {
+    const popup = $('.message-popup');
+    popup.addClass('on');
+    popup.find('h4').text(label);
+    popup.find('p').text(message);
+
+    if (fail) {
+      popup.addClass('alert-danger');
+    } else {
+      popup.removeClass('alert-danger');
+    }
+
+    setTimeout(function () {
+      popup.removeClass('on');
+    }, 4000);
   }
 }

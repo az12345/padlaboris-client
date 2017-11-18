@@ -11,6 +11,10 @@ body {
   display: flex;
   justify-content: center;
 }
+.flex-middle {
+  display: flex;
+  align-items: center;
+}
 .flex-center-middle {
   display: flex;
   justify-content: center;
