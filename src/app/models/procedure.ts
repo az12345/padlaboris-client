@@ -3,7 +3,7 @@ import {Patient} from "./patient";
 export class Procedure {
 
   id: number;
-  name: string;
+  procedureName: string;
   date: number;
   patient: Patient;
 }

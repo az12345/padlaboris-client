@@ -12,5 +12,10 @@
   letter-spacing: .5px;
 }
 .navbar-brand {
-  font-weight: 500;
+  padding: 0;
+  margin: 0;
+}
+.navbar-brand > img {
+  height: 100%;
+  width: auto;
 }

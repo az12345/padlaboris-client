@@ -2,7 +2,7 @@
   position: fixed;
   z-index: -1;
   opacity: 0;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   left: 0;
   right: 0;
   top: 0;

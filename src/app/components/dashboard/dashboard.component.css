@@ -83,6 +83,9 @@
 .form > .form-body {
   padding: 30px;
 }
+.form > .form-body > p {
+  font-size: 1.2em;
+}
 .form > .form-footer {
   padding: 30px;
   border-top: 1px solid rgba(217, 217, 217, 0.51);
@@ -128,4 +131,14 @@
 .tab-grid-item a {
   font-size: 1.3em;
   font-weight: 500;
+}
+.tab-header {
+  padding: 0 8px 16px 8px;
+  display: flex;
+  align-items: center;
+}
+.tab-header > p {
+  font-size: 1.2em;
+  font-weight: 500;
+  margin: 0;
 }
